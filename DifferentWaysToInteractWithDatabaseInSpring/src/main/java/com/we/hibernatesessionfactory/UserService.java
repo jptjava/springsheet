@@ -21,5 +21,14 @@ public class UserService {
 		
 		});
 	}
+	
+	public void showUserByUsername(String username){
+		userDao.getUserByUserName(username).forEach((x)->{
+			
+			System.out.printf("%d  %s %d \n",x.getId(),x.getUsername(),x.getPhoneNumber());
+			
+		
+		});
+	}
 
 }

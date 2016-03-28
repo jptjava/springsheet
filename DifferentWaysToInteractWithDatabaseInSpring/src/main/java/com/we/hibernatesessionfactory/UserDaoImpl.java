@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,10 +24,12 @@ public class UserDaoImpl implements UserDao {
 		return sessionFactory.getCurrentSession().createQuery("from User").list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public User getUserByUserName(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> getUserByUserName(String username) {
+		Query query=sessionFactory.getCurrentSession().createQuery("from User where username=:username");
+		query.setParameter("username", username);
+		return query.list();
 	}
 
 	@Override

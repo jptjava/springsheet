@@ -9,5 +9,7 @@ public class Main {
 			
 			UserService userService=(UserService)ctx.getBean("userService");
 			userService.showUserList();
+			System.out.println("================");
+			userService.showUserByUsername("john");
 	}
 }
