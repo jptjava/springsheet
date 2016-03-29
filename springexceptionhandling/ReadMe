@@ -1,0 +1,17 @@
+Following are some ways to implement exception handling in spring mvc
+
+1.Use ExceptionHandler method in the same controller where exception will be thrown.
+
+
+2.Create Global Exception handler class by using annotation ControllerAdvice and have various
+exception handler method to handle different exception.
+
+
+
+3.Configure exception handling in xml using SimpleMappingExceptionResolver where
+	for certain exception a jsp page will be displayed.
+
+	*Note method 2 and method3 should not be used together.
+	
+4.Custom ExceptionResolver
+  ......WOrking on it..
