@@ -79,4 +79,24 @@ public class GlobalExceptionHandler {
 
 
 4.Custom ExceptionResolver
-  ......WOrking on it..
+  a. create a custom exception resolver class by implementing HandlerExceptionResolver
+  and overriding resolveException method
+  
+  public class CustomExceptionResolver implements HandlerExceptionResolver {
+
+	@Override
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
+						 Object handler, Exception exception ) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("MappingJacksonJsonView");
+		mav.addObject("error", exception.getMessage() );
+		return mav;
+	}
+
+}
+
+
+	b. Define a the bean of that class in spring xml
+	
+	<bean id="exceptionResolver" class="CustomExceptionResolver" />
+	
