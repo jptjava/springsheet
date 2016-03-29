@@ -22,7 +22,7 @@ public class Home {
 	
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public String user(){
-		return "sdf";
+		return "user";
 	}
 	
 
