@@ -61,12 +61,12 @@ public class GlobalExceptionHandler {
 	for certain exception a jsp page will be displayed.
 	
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <props>
-                <prop key="com.who.exception.AddressNotFoundException">error</prop>
-            </props>
-        </property>
-        <property name="defaultErrorView" value="error"/>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.who.exception.AddressNotFoundException">error</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="error"/>
 	</bean>
 
 
