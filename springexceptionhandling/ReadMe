@@ -1,17 +1,73 @@
 Following are some ways to implement exception handling in spring mvc
 
-1.Use ExceptionHandler method in the same controller where exception will be thrown.
+1.Use ExceptionHandler method in the same controller class where exception will be thrown.
+
+//Home.java
+...
+..
+	//Thrown: UserNotFoundException exception will be thrown
+	@RequestMapping(value="/user",method=RequestMethod.GET)
+	public String user(){
+		throw new UserNotFoundException(1);
+	}
+	
+	//Handled:This method will handle UserNotFoundException 
+	@ExceptionHandler(UserNotFoundException.class)
+	public String handleUserNotFoundException(HttpServletRequest request,Exception ex,Model model){
+		
+		System.out.println("Requested URL "+ request.getRequestURL());
+		System.out.println("Exception Raised "+ ex);
+		model.addAttribute("exception", ex);
+		model.addAttribute("url", request.getRequestURL());
+		return "error";
+		
+	}
+
+
 
 
 2.Create Global Exception handler class by using annotation ControllerAdvice and have various
 exception handler method to handle different exception.
 
+//Home.java
+..
+..
+	@RequestMapping(value="/file",method=RequestMethod.GET)
+	public String file() throws Exception{
+		throw new IOException("IOException");
+	}
+	
+//GlobalExceptionHandler.java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+   
+   	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="IOException occured")
+    @ExceptionHandler(IOException.class)
+    public String handleIOException(){
+    	System.out.println("IOException handler executed");
+        return "error";
+    }
+
+}
+
 
 
 3.Configure exception handling in xml using SimpleMappingExceptionResolver where
 	for certain exception a jsp page will be displayed.
-
-	*Note method 2 and method3 should not be used together.
 	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="com.who.exception.AddressNotFoundException">error</prop>
+            </props>
+        </property>
+        <property name="defaultErrorView" value="error"/>
+    </bean>
+
+
+*Note method 2 and method3 should not be used together.
+	
+
+
 4.Custom ExceptionResolver
   ......WOrking on it..
