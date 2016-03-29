@@ -67,7 +67,7 @@ public class GlobalExceptionHandler {
             </props>
         </property>
         <property name="defaultErrorView" value="error"/>
-    </bean>
+	</bean>
 
 
 *Note method 2 and method3 should not be used together.
