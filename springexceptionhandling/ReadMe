@@ -3,6 +3,7 @@ Following are some ways to implement exception handling in spring mvc
 1.Use ExceptionHandler method in the same controller class where exception will be thrown.
 
 //Home.java
+
 @Controller
 public class Home {
 	
@@ -32,6 +33,7 @@ public class Home {
 exception handler method to handle different exception.
 
 //Home.java
+
 @Controller
 public class Home {
 	//Exception thrown
@@ -40,8 +42,10 @@ public class Home {
 		throw new IOException("IOException");
 	}
 }
+
 	
 //GlobalExceptionHandler.java
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
    
