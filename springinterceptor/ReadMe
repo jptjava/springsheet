@@ -1,102 +1,27 @@
-Following are some ways to implement exception handling in spring mvc
+Following are some ways to write spring mvc interceptor.
+Url interceptors and method interceptor(aop).
 
-1.Use ExceptionHandler method in the same controller class where exception will be thrown.
+This example is of creating spring mvc url interceptor or http based interceptor
 
-//Home.java
 
-@Controller
-public class Home {
+1. Create a Custom interceptor class by extending the class "HandlerInterceptorAdapter" 
+	and provide override following method based on requirement.
 	
-	//Thrown: UserNotFoundException exception will be thrown
-	@RequestMapping(value="/user",method=RequestMethod.GET)
-	public String user(){
-		throw new UserNotFoundException(1);
-	}
-	
-	//Handled:This method will handle UserNotFoundException 
-	@ExceptionHandler(UserNotFoundException.class)
-	public String handleUserNotFoundException(HttpServletRequest request,Exception ex,Model model){
-		
-		System.out.println("Requested URL "+ request.getRequestURL());
-		System.out.println("Exception Raised "+ ex);
-		model.addAttribute("exception", ex);
-		model.addAttribute("url", request.getRequestURL());
-		return "error";
-		
-	}
-}
-
-
-
-
-2.Create Global Exception handler class by using annotation ControllerAdvice and have various
-exception handler method to handle different exception.
-
-//Home.java
-
-@Controller
-public class Home {
-	//Exception thrown
-	@RequestMapping(value="/file",method=RequestMethod.GET)
-	public String file() throws Exception{
-		throw new IOException("IOException");
-	}
-}
-
-	
-//GlobalExceptionHandler.java
-
-@ControllerAdvice
-public class GlobalExceptionHandler {
-   
-   //Exception handled
-   	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="IOException occured")
-    @ExceptionHandler(IOException.class)
-    public String handleIOException(){
-    	System.out.println("IOException handler executed");
-        return "error";
-    }
-
-}
-
-
-
-3.Configure exception handling in xml using SimpleMappingExceptionResolver where
-	for certain exception a jsp page will be displayed.
-	
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="com.who.exception.AddressNotFoundException">error</prop>
-			</props>
-		</property>
-		<property name="defaultErrorView" value="error"/>
-	</bean>
-
-
-*Note method 2 and method3 should not be used together.
+    
+    a.preHandle
+    b.postHandle
+    c.afterCompletion
+    
 	
 
+2. Configure the interceptor on required path
 
-4.Custom ExceptionResolver
-  a. create a custom exception resolver class by implementing HandlerExceptionResolver
-  and overriding resolveException method
-  
-  public class CustomExceptionResolver implements HandlerExceptionResolver {
+	<!-- Configuring interceptors based on URI -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user" />
+            <bean class="CustomInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
 
-	@Override
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
-						 Object handler, Exception exception ) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("MappingJacksonJsonView");
-		mav.addObject("error", exception.getMessage() );
-		return mav;
-	}
-
-}
-
-
-	b. Define a the bean of that class in spring xml
-	
-	<bean id="exceptionResolver" class="CustomExceptionResolver" />
-	

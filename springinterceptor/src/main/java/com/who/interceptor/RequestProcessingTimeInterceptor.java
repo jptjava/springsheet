@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-//@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Address not found") //404
+
 public class RequestProcessingTimeInterceptor extends HandlerInterceptorAdapter {
 
 	@Override

@@ -31,9 +31,6 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   
-  <error-page>
-        <error-code>404</error-code>
-        <location>/resources/fourohfour.jsp</location>
-    </error-page>
+
   
 </web-app>
