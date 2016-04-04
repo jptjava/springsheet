@@ -1,4 +1,5 @@
 Following are some ways to write spring mvc interceptor.
+
 Url interceptors and method interceptor(aop).
 
 This example is of creating spring mvc url interceptor or http based interceptor
