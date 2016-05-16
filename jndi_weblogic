@@ -1,0 +1,19 @@
+How to set up JNDI data source in WebLogic application server
+
+weblogic.xml
+
+<resource-description>
+    <jndi-name>applicationDs</jndi-name>
+    <res-ref-name>jdbc/applicationDs </res-ref-name>
+</resource-description>
+
+
+
+web.xml
+
+<resource-ref>
+    <description>My data source</description>
+    <res-ref-name>jdbc/applicationDs </res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+</resource-ref>
