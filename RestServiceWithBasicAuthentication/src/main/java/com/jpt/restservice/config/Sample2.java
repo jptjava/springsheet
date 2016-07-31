@@ -1,3 +1,3 @@
-class Sample2{
+class Tample2{
 
 }
